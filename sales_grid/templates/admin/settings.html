@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">Company Settings (URLs)</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Nome da empresa</label>
+        <input class="form-control" name="name" value="{{ company.name or '' }}">
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Logo URL</label>
+          <input class="form-control url-preview" name="logo_url" value="{{ company.logo_url or '' }}" placeholder="https://...">
+          <div class="mt-2 preview"></div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Watermark URL</label>
+          <input class="form-control url-preview" name="watermark_url" value="{{ company.watermark_url or '' }}" placeholder="https://...">
+          <div class="mt-2 preview"></div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

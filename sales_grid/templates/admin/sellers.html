@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">Sellers</h1>
+
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <h2 class="h5">Criar vendedor</h2>
+    <form method="post" class="row g-2 align-items-end">
+      <input type="hidden" name="action" value="create">
+      <div class="col-md-2">
+        <label class="form-label">ID</label>
+        <input class="form-control" name="id" placeholder="s10">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Nome</label>
+        <input class="form-control" name="name" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Equipe</label>
+        <select class="form-select" name="team_id" required>
+          {% for tid, t in teams.items() %}
+            <option value="{{ tid }}">{{ t.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Foto (URL)</label>
+        <input class="form-control url-preview" name="photo_url" placeholder="https://...">
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-primary w-100">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="h5">Lista</h2>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead><tr><th>ID</th><th>Nome</th><th>Equipe</th><th>Foto</th><th style="width: 240px;">Ações</th></tr></thead>
+        <tbody>
+          {% for s in sellers %}
+          <tr>
+            <td><code>{{ s.id }}</code></td>
+            <td>{{ s.name }}</td>
+            <td>{{ teams.get(s.team_id).name if teams.get(s.team_id) else s.team_id }}</td>
+            <td>{% if s.photo_url %}<img src="{{ s.photo_url }}" class="avatar" alt="">{% endif %}</td>
+            <td>
+              <form method="post" class="d-inline">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="{{ s.id }}">
+                <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Remover vendedor?')">Excluir</button>
+              </form>
+              <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#edit{{ s.id }}">Editar</button>
+            </td>
+          </tr>
+          <tr class="collapse" id="edit{{ s.id }}">
+            <td colspan="5">
+              <form method="post" class="row g-2 align-items-end">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" value="{{ s.id }}">
+                <div class="col-md-3">
+                  <label class="form-label">Nome</label>
+                  <input class="form-control" name="name" value="{{ s.name }}">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Equipe</label>
+                  <select class="form-select" name="team_id">
+                    {% for tid, t in teams.items() %}
+                      <option value="{{ tid }}" {% if tid == s.team_id %}selected{% endif %}>{{ t.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Foto (URL)</label>
+                  <input class="form-control url-preview" name="photo_url" value="{{ s.photo_url }}">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary w-100">Salvar</button>
+                </div>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

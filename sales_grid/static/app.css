@@ -1,0 +1,8 @@
+:root{ --sticky-bg: #fff; }
+.thumb{width:32px;height:32px;object-fit:cover;border-radius:6px}
+.avatar{width:36px;height:36px;object-fit:cover;border-radius:999px}
+.sticky-top{position: sticky; top: 0; z-index: 3;}
+.sticky-bottom{position: sticky; bottom: 0; z-index: 2;}
+.sticky-col{position: sticky; left: 0; z-index: 4; background: var(--sticky-bg);}
+#gridTable th.sticky-col{z-index:5;}
+.table-responsive{max-height: calc(100vh - 240px);}

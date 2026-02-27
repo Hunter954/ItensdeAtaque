@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">Audit (últimas 100)</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead><tr><th>Quando (UTC)</th><th>Quem</th><th>Tipo</th><th>Detalhes</th></tr></thead>
+        <tbody>
+          {% for a in audit %}
+            <tr>
+              <td><code>{{ a.at }}</code></td>
+              <td>{{ a.by }}</td>
+              <td><span class="badge text-bg-secondary">{{ a.type }}</span></td>
+              <td class="small">
+                equipe={{ a.team_id }}, período={{ a.period_id }}, vendedor={{ a.seller_id }}, item={{ a.item_id }},
+                {{ a.from }} → <b>{{ a.to }}</b>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

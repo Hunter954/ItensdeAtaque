@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
+  <div>
+    <h1 class="h3 mb-1">{{ team.name }}</h1>
+    <div class="text-muted">Gestor: {{ team.manager_name }}</div>
+  </div>
+
+  <div class="d-flex flex-wrap align-items-center gap-2">
+    <form method="get" class="d-flex align-items-center gap-2">
+      <label class="form-label m-0">Período</label>
+      <select name="period" class="form-select" onchange="this.form.submit()">
+        {% for p in periods %}
+          <option value="{{ p.id }}" {% if p.id == period_id %}selected{% endif %}>{{ p.name }}</option>
+        {% endfor %}
+      </select>
+    </form>
+    <a class="btn btn-outline-secondary" href="{{ url_for('api.export_csv', team_id=team.id, period_id=period_id) }}">CSV</a>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-4">
+        <label class="form-label">Buscar vendedor</label>
+        <input id="searchSeller" class="form-control" placeholder="Digite o nome...">
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label">Buscar item</label>
+        <input id="searchItem" class="form-control" placeholder="Digite o item...">
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label">Modo foco (celular)</label>
+        <select id="focusItem" class="form-select">
+          <option value="">Todos os itens</option>
+          {% for it in items %}
+            <option value="{{ it.id }}">{{ it.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-3 d-flex align-items-center gap-2">
+      <span class="badge text-bg-secondary" id="saveStatus">Pronto</span>
+      <span class="text-muted small" id="saveMeta"></span>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive shadow-sm border rounded">
+  <table class="table table-sm table-striped align-middle mb-0" id="gridTable"
+         data-team-id="{{ team.id }}" data-period-id="{{ period_id }}">
+    <thead class="table-dark sticky-top">
+      <tr>
+        <th style="min-width: 220px;">Vendedor</th>
+        {% for it in items %}
+          <th class="item-col" data-item-id="{{ it.id }}" style="min-width: 180px;">
+            <div class="d-flex align-items-center gap-2">
+              {% if it.photo_url %}<img src="{{ it.photo_url }}" class="thumb" alt="">{% endif %}
+              <div>
+                <div class="fw-semibold item-name">{{ it.name }}</div>
+                {% if it.video_url %}
+                  <a href="{{ it.video_url }}" target="_blank" class="small text-light">vídeo</a>
+                {% endif %}
+              </div>
+            </div>
+          </th>
+        {% endfor %}
+        <th style="min-width:120px;">Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for s in sellers %}
+      <tr class="seller-row" data-seller-id="{{ s.id }}">
+        <td class="sticky-col bg-body">
+          <div class="d-flex align-items-center gap-2">
+            {% if s.photo_url %}<img src="{{ s.photo_url }}" class="avatar" alt="">{% endif %}
+            <div>
+              <div class="fw-semibold seller-name">{{ s.name }}</div>
+              <div class="text-muted small">{{ s.id }}</div>
+            </div>
+          </div>
+        </td>
+
+        {% for it in items %}
+          {% set v = (sales.get(s.id, {}) or {}).get(it.id, 0) %}
+          <td class="item-col" data-item-id="{{ it.id }}">
+            <div class="d-flex align-items-center gap-1">
+              <button class="btn btn-outline-secondary btn-sm px-2 py-0 dec">−</button>
+              <input class="form-control form-control-sm qty" type="number" min="0" step="1"
+                     value="{{ v }}" data-seller-id="{{ s.id }}" data-item-id="{{ it.id }}">
+              <button class="btn btn-outline-secondary btn-sm px-2 py-0 inc">+</button>
+            </div>
+          </td>
+        {% endfor %}
+
+        <td class="fw-bold row-total">0</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+    <tfoot class="table-light sticky-bottom">
+      <tr>
+        <th class="sticky-col bg-body">Total</th>
+        {% for it in items %}
+          <th class="item-col col-total" data-item-id="{{ it.id }}">0</th>
+        {% endfor %}
+        <th id="grandTotal">0</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.SALES_GRID_BOOT = {
+    team_id: "{{ team.id }}",
+    period_id: "{{ period_id }}",
+  };
+</script>
+<script src="{{ url_for('static', filename='team_grid.js') }}"></script>
+{% endblock %}

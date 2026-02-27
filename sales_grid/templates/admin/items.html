@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">Items</h1>
+
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <h2 class="h5">Criar item</h2>
+    <form method="post" class="row g-2 align-items-end">
+      <input type="hidden" name="action" value="create">
+      <div class="col-md-2">
+        <label class="form-label">ID</label>
+        <input class="form-control" name="id" placeholder="i10">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Nome</label>
+        <input class="form-control" name="name" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Foto (URL)</label>
+        <input class="form-control url-preview" name="photo_url" placeholder="https://...">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Vídeo (URL opcional)</label>
+        <input class="form-control" name="video_url" placeholder="https://youtube.com/...">
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-primary w-100">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="h5">Lista</h2>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead><tr><th>ID</th><th>Nome</th><th>Foto</th><th>Vídeo</th><th style="width: 240px;">Ações</th></tr></thead>
+        <tbody>
+          {% for it in items %}
+          <tr>
+            <td><code>{{ it.id }}</code></td>
+            <td>{{ it.name }}</td>
+            <td>{% if it.photo_url %}<img src="{{ it.photo_url }}" class="thumb" alt="">{% endif %}</td>
+            <td>
+              {% if it.video_url %}
+                <a href="{{ it.video_url }}" target="_blank">{{ it.video_url }}</a>
+              {% endif %}
+            </td>
+            <td>
+              <form method="post" class="d-inline">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="{{ it.id }}">
+                <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Remover item?')">Excluir</button>
+              </form>
+              <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#edit{{ it.id }}">Editar</button>
+            </td>
+          </tr>
+          <tr class="collapse" id="edit{{ it.id }}">
+            <td colspan="5">
+              <form method="post" class="row g-2 align-items-end">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" value="{{ it.id }}">
+                <div class="col-md-3">
+                  <label class="form-label">Nome</label>
+                  <input class="form-control" name="name" value="{{ it.name }}">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Foto (URL)</label>
+                  <input class="form-control url-preview" name="photo_url" value="{{ it.photo_url }}">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Vídeo (URL opcional)</label>
+                  <input class="form-control" name="video_url" value="{{ it.video_url }}">
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-primary w-100">Salvar</button>
+                </div>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
