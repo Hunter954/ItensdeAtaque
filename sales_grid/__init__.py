@@ -6,7 +6,6 @@ def create_app():
     app = Flask(__name__, template_folder="templates", static_folder="static")
     app.config.from_object(Config)
 
-    # Blueprints primeiro
     from .blueprints.auth import bp as auth_bp
     from .blueprints.main import bp as main_bp
     from .blueprints.team import bp as team_bp
@@ -19,9 +18,6 @@ def create_app():
     app.register_blueprint(admin_bp)
     app.register_blueprint(api_bp)
 
-    # Agora dentro do contexto
-    with app.app_context():
-        load_data()
+    return app  # ← sem load_data() aqui
 
-    return app
 
