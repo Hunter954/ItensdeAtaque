@@ -189,7 +189,7 @@ def load_data(force: bool = False):
             return _CACHE
 
         url = _contents_url(repo, gh_path)
-        r = _request("GET", url, headers=_headers(token), params={"ref": branch}, timeout=12, retries=2)
+        r = _request("GET", url, headers=_headers(token), params={"ref": branch}, timeout=5, retries=1)
 
         if r.status_code == 200:
             payload = r.json()
