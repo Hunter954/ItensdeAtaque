@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import requests
 from flask import current_app
 
-_lock = threading.Lock()
+_lock = threading.RLock()
 _CACHE = None
 _CACHE_SHA = None
 _CACHE_ETAG = None
