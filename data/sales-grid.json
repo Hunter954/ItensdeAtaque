@@ -1,0 +1,173 @@
+{
+  "audit": [],
+  "company": {
+    "logo_url": "https://via.placeholder.com/256?text=LOGO",
+    "name": "Minha Empresa",
+    "watermark_url": "https://via.placeholder.com/256?text=WATERMARK"
+  },
+  "items": [
+    {
+      "id": "i1",
+      "name": "Produto A",
+      "photo_url": "https://via.placeholder.com/256?text=Produto+A",
+      "video_url": ""
+    },
+    {
+      "id": "i2",
+      "name": "Produto B",
+      "photo_url": "https://via.placeholder.com/256?text=Produto+B",
+      "video_url": ""
+    },
+    {
+      "id": "i3",
+      "name": "Produto C",
+      "photo_url": "https://via.placeholder.com/256?text=Produto+C",
+      "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+  ],
+  "meta": {
+    "created_at": "2026-02-28T01:39:13.915573+00:00",
+    "updated_at": "2026-02-28T01:39:14.446614+00:00"
+  },
+  "periods": [
+    {
+      "created_at": "2026-02-28T01:39:13.915546+00:00",
+      "id": "p202602",
+      "is_current": true,
+      "name": "February 2026"
+    }
+  ],
+  "sales": {
+    "p202602": {
+      "t1": {
+        "s1": {
+          "i1": 0,
+          "i2": 0,
+          "i3": 0
+        },
+        "s2": {
+          "i1": 0,
+          "i2": 0,
+          "i3": 0
+        }
+      },
+      "t2": {
+        "s3": {
+          "i1": 0,
+          "i2": 0,
+          "i3": 0
+        },
+        "s4": {
+          "i1": 0,
+          "i2": 0,
+          "i3": 0
+        }
+      },
+      "t3": {
+        "s5": {
+          "i1": 0,
+          "i2": 0,
+          "i3": 0
+        }
+      },
+      "t4": {},
+      "t5": {}
+    }
+  },
+  "sellers": [
+    {
+      "id": "s1",
+      "name": "João",
+      "photo_url": "https://via.placeholder.com/256?text=Joao",
+      "team_id": "t1"
+    },
+    {
+      "id": "s2",
+      "name": "Mariana",
+      "photo_url": "https://via.placeholder.com/256?text=Mariana",
+      "team_id": "t1"
+    },
+    {
+      "id": "s3",
+      "name": "Pedro",
+      "photo_url": "https://via.placeholder.com/256?text=Pedro",
+      "team_id": "t2"
+    },
+    {
+      "id": "s4",
+      "name": "Lívia",
+      "photo_url": "https://via.placeholder.com/256?text=Livia",
+      "team_id": "t2"
+    },
+    {
+      "id": "s5",
+      "name": "Rafa",
+      "photo_url": "https://via.placeholder.com/256?text=Rafa",
+      "team_id": "t3"
+    }
+  ],
+  "teams": [
+    {
+      "id": "t1",
+      "manager_name": "Ana Souza",
+      "manager_photo_url": "https://via.placeholder.com/256?text=Ana",
+      "name": "Equipe Norte"
+    },
+    {
+      "id": "t2",
+      "manager_name": "Bruno Lima",
+      "manager_photo_url": "https://via.placeholder.com/256?text=Bruno",
+      "name": "Equipe Sul"
+    },
+    {
+      "id": "t3",
+      "manager_name": "Carla Mendes",
+      "manager_photo_url": "https://via.placeholder.com/256?text=Carla",
+      "name": "Equipe Leste"
+    },
+    {
+      "id": "t4",
+      "manager_name": "Diego Rocha",
+      "manager_photo_url": "https://via.placeholder.com/256?text=Diego",
+      "name": "Equipe Oeste"
+    },
+    {
+      "id": "t5",
+      "manager_name": "Eva Martins",
+      "manager_photo_url": "https://via.placeholder.com/256?text=Eva",
+      "name": "Equipe Centro"
+    }
+  ],
+  "users": [
+    {
+      "email": "manager.norte@example.com",
+      "password_hash": "scrypt:32768:8:1$47YhX3J3MSRpmd31$181987858128db9697aea4ac5dc3f97ee1dc530bf01c050cdddf9a7b375d21ecc75468c6b31042c5081d5f7671f116997d89fbb7a3a3cb2b44500a7d6bfba84d",
+      "role": "MANAGER",
+      "team_id": "t1"
+    },
+    {
+      "email": "manager.sul@example.com",
+      "password_hash": "scrypt:32768:8:1$g2LencVciCrf9Hm2$53e4b24f1c8940b751c1be137180a86ffc8d6875bc56cff4077e426ff775f63bd5560feea7d180e8269e4cf957bd4ee70423ab685900917c2be443e4f624095c",
+      "role": "MANAGER",
+      "team_id": "t2"
+    },
+    {
+      "email": "manager.leste@example.com",
+      "password_hash": "scrypt:32768:8:1$Bb1GZKof5CR6XYSU$4e972b2f18abb23a35cd7fa08bca368b2c0c14ada8251be95070c9f0f3d8483c6d577a5a714b130160d9617082fa4ab7fadb03b883e3d284ebf8f7f33be72cb7",
+      "role": "MANAGER",
+      "team_id": "t3"
+    },
+    {
+      "email": "manager.oeste@example.com",
+      "password_hash": "scrypt:32768:8:1$toWES20c2AMwgETK$ef3ce6d33532e4285b361896c961e582ced951dc21b0e39af02ca8d5650b72d67446f0237fd4d47d8f08b002184976fe3eedd8372d90a6510ab84216faedb285",
+      "role": "MANAGER",
+      "team_id": "t4"
+    },
+    {
+      "email": "manager.centro@example.com",
+      "password_hash": "scrypt:32768:8:1$4Fic4Wunmumm0Boc$8d92c83bb6250bb22ae198e42838f3f3d087c0f6f12a23905eb2d627e4eaf71bd9d85b6a38b313242d09c5b87218e92823e3b920773342527762e9f90e4d8564",
+      "role": "MANAGER",
+      "team_id": "t5"
+    }
+  ]
+}
