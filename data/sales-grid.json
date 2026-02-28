@@ -27,7 +27,7 @@
   ],
   "meta": {
     "created_at": "2026-02-28T01:39:13.915573+00:00",
-    "updated_at": "2026-02-28T01:55:04.889414+00:00"
+    "updated_at": "2026-02-28T01:55:08.125633+00:00"
   },
   "periods": [
     {
@@ -39,13 +39,7 @@
   ],
   "sales": {
     "p202602": {
-      "t1": {
-        "s2": {
-          "i1": 0,
-          "i2": 0,
-          "i3": 0
-        }
-      },
+      "t1": {},
       "t2": {
         "s3": {
           "i1": 0,
@@ -69,12 +63,6 @@
     }
   },
   "sellers": [
-    {
-      "id": "s2",
-      "name": "Mariana",
-      "photo_url": "https://via.placeholder.com/256?text=Mariana",
-      "team_id": "t1"
-    },
     {
       "id": "s3",
       "name": "Pedro",
