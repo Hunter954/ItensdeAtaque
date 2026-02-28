@@ -95,9 +95,9 @@ def seed_data():
         {"id": "s5", "name": "Rafa", "team_id": "t3", "photo_url": "https://via.placeholder.com/256?text=Rafa"},
     ]
     items = [
-        {"id": "i1", "name": "Produto A", "photo_url": "https://via.placeholder.com/256?text=Produto+A", "video_url": ""},
-        {"id": "i2", "name": "Produto B", "photo_url": "https://via.placeholder.com/256?text=Produto+B", "video_url": ""},
-        {"id": "i3", "name": "Produto C", "photo_url": "https://via.placeholder.com/256?text=Produto+C", "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+        {"id": "i1", "name": "Produto A", "photo_url": "https://via.placeholder.com/256?text=Produto+A", "video_url": "", "target": 18},
+        {"id": "i2", "name": "Produto B", "photo_url": "https://via.placeholder.com/256?text=Produto+B", "video_url": "", "target": 18},
+        {"id": "i3", "name": "Produto C", "photo_url": "https://via.placeholder.com/256?text=Produto+C", "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "target": 18},
     ]
     now = datetime.now(timezone.utc)
     period_id = now.strftime("p%Y%m")
@@ -132,6 +132,18 @@ def seed_data():
     }
 
 
+
+def _ensure_item_targets(data, default_target: int = 18):
+    """Backward compatible: ensure each item has an integer target/meta."""
+    items = data.setdefault("items", [])
+    for it in items:
+        if "target" not in it or it.get("target") in (None, ""):
+            it["target"] = default_target
+        try:
+            it["target"] = int(it.get("target") or default_target)
+        except Exception:
+            it["target"] = default_target
+
 def _ensure_user_password_hashes(data: dict):
     try:
         from werkzeug.security import generate_password_hash
@@ -155,6 +167,7 @@ def load_data(force: bool = False):
             if _CACHE is None:
                 _CACHE = seed_data()
                 _ensure_user_password_hashes(_CACHE)
+                _ensure_item_targets(_CACHE)
             return _CACHE
 
         url = _contents_url(repo, gh_path)
@@ -166,6 +179,7 @@ def load_data(force: bool = False):
             if _CACHE is None:
                 _CACHE = seed_data()
                 _ensure_user_password_hashes(_CACHE)
+                _ensure_item_targets(_CACHE)
             return _CACHE
 
         if r.status_code == 200:
@@ -173,6 +187,7 @@ def load_data(force: bool = False):
             raw = _decode_content_b64(payload.get("content", ""))
             data = json.loads(raw)
             _ensure_user_password_hashes(data)
+            _ensure_item_targets(data)
             _CACHE = data
             _CACHE_SHA = payload.get("sha")
             _CACHE_ETAG = r.headers.get("ETag")
@@ -181,6 +196,7 @@ def load_data(force: bool = False):
         if r.status_code == 404:
             data = seed_data()
             _ensure_user_password_hashes(data)
+            _ensure_item_targets(data)
             try:
                 save_data(data, "Seed initial Sales Grid data")
             except Exception:
@@ -193,6 +209,7 @@ def load_data(force: bool = False):
             if _CACHE is None:
                 _CACHE = seed_data()
                 _ensure_user_password_hashes(_CACHE)
+                _ensure_item_targets(_CACHE)
             return _CACHE
 
         # Qualquer outro erro — fallback para seed

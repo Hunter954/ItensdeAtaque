@@ -15,6 +15,10 @@
         <label class="form-label">Nome</label>
         <input class="form-control" name="name" required>
       </div>
+      <div class="col-md-1">
+        <label class="form-label">Meta</label>
+        <input class="form-control" name="target" type="number" min="0" value="18">
+      </div>
       <div class="col-md-3">
         <label class="form-label">Foto (URL)</label>
         <input class="form-control url-preview" name="photo_url" placeholder="https://...">
@@ -35,12 +39,13 @@
     <h2 class="h5">Lista</h2>
     <div class="table-responsive">
       <table class="table table-sm align-middle">
-        <thead><tr><th>ID</th><th>Nome</th><th>Foto</th><th>Vídeo</th><th style="width: 240px;">Ações</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nome</th><th>Meta</th><th>Foto</th><th>Vídeo</th><th style="width: 280px;">Ações</th></tr></thead>
         <tbody>
           {% for it in items %}
           <tr>
             <td><code>{{ it.id }}</code></td>
             <td>{{ it.name }}</td>
+            <td><span class="badge bg-primary-subtle text-primary-emphasis">{{ it.target or 18 }}</span></td>
             <td>{% if it.photo_url %}<img src="{{ it.photo_url }}" class="thumb" alt="">{% endif %}</td>
             <td>
               {% if it.video_url %}

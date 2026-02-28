@@ -90,9 +90,16 @@
             <div class="d-flex align-items-center gap-1">
               <button class="btn btn-outline-secondary btn-sm px-2 py-0 dec">−</button>
               <input class="form-control form-control-sm qty" type="number" min="0" step="1"
-                     value="{{ v }}" data-seller-id="{{ s.id }}" data-item-id="{{ it.id }}">
+                     value="{{ v }}" data-seller-id="{{ s.id }}" data-item-id="{{ it.id }}" data-target="{{ it.target or 18 }}">
               <button class="btn btn-outline-secondary btn-sm px-2 py-0 inc">+</button>
             </div>
+            {% set target = it.target or 18 %}
+            {% set remaining = target - v %}
+            {% if remaining > 0 %}
+              <div class="text-danger remain-label remaining" data-target="{{ target }}">Faltam {{ remaining }}</div>
+            {% else %}
+              <div class="remain-label remaining d-none" data-target="{{ target }}"></div>
+            {% endif %}
           </td>
         {% endfor %}
 

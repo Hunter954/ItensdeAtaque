@@ -6,3 +6,81 @@
 .sticky-col{position: sticky; left: 0; z-index: 4; background: var(--sticky-bg);}
 #gridTable th.sticky-col{z-index:5;}
 .table-responsive{max-height: calc(100vh - 240px);}
+
+
+/* === Orange/Black theme === */
+:root{
+  --brand-orange: #f97316;
+  --brand-orange-600: #ea580c;
+  --brand-black: #0b0b0b;
+
+  --bs-primary: var(--brand-orange);
+  --bs-primary-rgb: 249,115,22;
+  --bs-link-color: var(--brand-orange);
+  --bs-link-hover-color: var(--brand-orange-600);
+}
+
+/* Make primary buttons orange with good contrast */
+.btn-primary{
+  --bs-btn-bg: var(--brand-orange);
+  --bs-btn-border-color: var(--brand-orange);
+  --bs-btn-hover-bg: var(--brand-orange-600);
+  --bs-btn-hover-border-color: var(--brand-orange-600);
+  --bs-btn-active-bg: var(--brand-orange-600);
+  --bs-btn-active-border-color: var(--brand-orange-600);
+}
+.btn-outline-primary{
+  --bs-btn-color: var(--brand-orange);
+  --bs-btn-border-color: var(--brand-orange);
+  --bs-btn-hover-bg: var(--brand-orange);
+  --bs-btn-hover-border-color: var(--brand-orange);
+  --bs-btn-active-bg: var(--brand-orange-600);
+  --bs-btn-active-border-color: var(--brand-orange-600);
+}
+
+/* Accent badges */
+.badge.bg-primary{ background-color: var(--brand-orange) !important; }
+
+/* Home team cards */
+.team-card{
+  border-top: 6px solid var(--brand-orange);
+}
+.team-card .team-avatar{
+  width: 44px; height: 44px; border-radius: 999px; object-fit: cover;
+  border: 2px solid rgba(249,115,22,.35);
+}
+.team-card .team-arrow{
+  color: rgba(0,0,0,.35);
+}
+.team-card:hover .team-arrow{
+  color: var(--brand-orange);
+}
+
+/* Login page */
+.auth-shell{
+  min-height: calc(100vh - 0px);
+  display:flex; align-items:center; justify-content:center;
+}
+.auth-brand{
+  display:flex; align-items:center; justify-content:center; gap:.75rem;
+  margin-bottom: .75rem;
+}
+.auth-brand .mark{
+  width: 44px; height:44px; border-radius: 12px;
+  background: var(--brand-orange);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:800;
+  box-shadow: 0 8px 22px rgba(249,115,22,.22);
+}
+.auth-card{
+  border-top: 6px solid var(--brand-orange);
+}
+
+/* Grid remaining label */
+.remain-label{
+  line-height: 1.1;
+  margin-top: .2rem;
+  font-size: .72rem;
+}
+
+/* keep existing */

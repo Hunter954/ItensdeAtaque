@@ -162,6 +162,7 @@ def items_post():
             "name": request.form.get("name", "").strip(),
             "photo_url": request.form.get("photo_url", "").strip(),
             "video_url": request.form.get("video_url", "").strip(),
+            "target": int(request.form.get("target") or 18),
         })
         _ensure_item_cells(data, new_id)
         save_data(data, f"Create item {new_id}")
@@ -176,6 +177,7 @@ def items_post():
         it["name"] = request.form.get("name", "").strip()
         it["photo_url"] = request.form.get("photo_url", "").strip()
         it["video_url"] = request.form.get("video_url", "").strip()
+        it["target"] = int(request.form.get("target") or it.get("target") or 18)
         save_data(data, f"Update item {iid}")
         flash("Item atualizado.", "success")
 

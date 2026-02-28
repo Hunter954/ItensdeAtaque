@@ -21,17 +21,33 @@
 <div class="row g-3">
   {% for t in teams %}
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100 shadow-sm">
+      <div class="card h-100 shadow-sm team-card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
         {% if t.manager_photo_url %}
-          <img src="{{ t.manager_photo_url }}" class="card-img-top" alt="{{ t.manager_name }}">
+          <img src="{{ t.manager_photo_url }}" class="team-avatar" alt="{{ t.manager_name }}">
+        {% else %}
+          <div class="team-avatar bg-light d-flex align-items-center justify-content-center fw-bold text-muted">?</div>
         {% endif %}
-        <div class="card-body">
-          <h5 class="card-title mb-1">{{ t.manager_name }}</h5>
-          <div class="text-muted mb-2">{{ t.name }}</div>
-          <a class="btn btn-primary" href="{{ url_for('team.team_view', team_id=t.id, period=selected_period) }}">Abrir grid</a>
-          <a class="btn btn-outline-secondary" href="{{ url_for('api.export_csv', team_id=t.id, period_id=selected_period) }}">Exportar CSV</a>
+        <div>
+          <div class="fw-semibold fs-5">{{ t.name }}</div>
+          <div class="text-muted small">{{ t.manager_name }}</div>
         </div>
       </div>
+      <div class="team-arrow fs-4">›</div>
+    </div>
+
+    <a class="stretched-link" href="{{ url_for('team.team_view', team_id=t.id, period=selected_period) }}"></a>
+  </div>
+  <div class="card-footer bg-transparent border-0 pt-0">
+    <div class="d-flex gap-2">
+      <a class="btn btn-primary btn-sm" href="{{ url_for('team.team_view', team_id=t.id, period=selected_period) }}">Abrir</a>
+      <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('api.export_csv', team_id=t.id, period_id=selected_period) }}">CSV</a>
+    </div>
+  </div>
+</div>
+    </div>
     </div>
   {% endfor %}
 </div>

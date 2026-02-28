@@ -19,7 +19,7 @@
   function setStatus(kind, text) {
     statusEl.textContent = text;
     statusEl.className = 'badge';
-    statusEl.classList.add(kind === 'ok' ? 'text-bg-success' : kind === 'saving' ? 'text-bg-warning' : kind === 'error' ? 'text-bg-danger' : 'text-bg-secondary');
+    statusEl.classList.add(kind === 'ok' ? 'text-bg-primary' : kind === 'saving' ? 'text-bg-warning' : kind === 'error' ? 'text-bg-danger' : 'text-bg-secondary');
   }
 
   function clampInt(n) {
@@ -27,7 +27,29 @@
     return Number.isFinite(v) && v >= 0 ? v : 0;
   }
 
-  function recalcTotals() {
+  function updateRemainingForInput(inp) {
+  const target = clampInt(inp.dataset.target || 0);
+  if (!target) return;
+  const v = clampInt(inp.value);
+        updateRemainingForInput(inp);
+  const td = inp.closest('td');
+  if (!td) return;
+  const label = td.querySelector('.remaining');
+  if (!label) return;
+
+  const remaining = target - v;
+  if (remaining > 0) {
+    label.textContent = `Faltam ${remaining}`;
+    label.classList.remove('d-none');
+    label.classList.add('text-danger');
+  } else {
+    // Meta batida: some a mensagem, fica só o saldo vendido (o input)
+    label.textContent = '';
+    label.classList.add('d-none');
+  }
+}
+
+function recalcTotals() {
     const bodyRows = table.querySelectorAll('tbody tr.seller-row');
     const itemCols = table.querySelectorAll('thead .item-col');
     const colTotals = {};
@@ -40,6 +62,7 @@
       tr.querySelectorAll('input.qty').forEach(inp => {
         const itemId = inp.dataset.itemId;
         const v = clampInt(inp.value);
+        updateRemainingForInput(inp);
         rowTotal += v;
         colTotals[itemId] = (colTotals[itemId] || 0) + v;
       });
@@ -131,6 +154,7 @@
 
     function push() {
       const v = clampInt(inp.value);
+        updateRemainingForInput(inp);
       inp.value = v;
       queueSave(inp.dataset.sellerId, inp.dataset.itemId, v);
       recalcTotals();
@@ -142,6 +166,7 @@
     inp.addEventListener('input', () => {
       // realtime totals, save on debounce
       const v = clampInt(inp.value);
+        updateRemainingForInput(inp);
       inp.value = v;
       queueSave(inp.dataset.sellerId, inp.dataset.itemId, v);
       recalcTotals();
